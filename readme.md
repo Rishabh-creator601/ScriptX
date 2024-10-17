@@ -19,4 +19,6 @@
 
 ## For exe 
 
-- You can 
+- You can build by pyinstaller but soon i will add a installer on my own 
+
+**Feel free to offer suggestion**
