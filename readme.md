@@ -15,3 +15,8 @@
 - Just do as follows :
 <code> git clone https://github.com/Rishabh-creator601/ScriptX.git </code> <br />
 <code> python main.py</code>
+
+
+## For exe 
+
+- You can 
