@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.uic import loadUi
 import os 
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 
 DOT_ENV_PATH = "C:/codes/GUIs/Scriptx"
 

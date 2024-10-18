@@ -4,7 +4,7 @@ from PyQt5 import QtGui
 from enlarged_windows import EnlargedWindow
 import sys ,os,dotenv
 from files_tools import show_files,path_scripts,read_file,write_file
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 
 
 
@@ -15,7 +15,8 @@ load_dotenv(os.path.join(DOT_ENV_PATH,".env"))
 
 
 
-os.chdir(os.getcwd()) 
+   
+    
 
 
 path_scripts = os.getenv("path_scripts")

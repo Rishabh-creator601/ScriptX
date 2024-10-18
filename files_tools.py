@@ -1,5 +1,5 @@
 import os,json 
-from dotenv import load_dotenv
+from dotenv import load_dotenv,find_dotenv
 
 
 
@@ -8,10 +8,10 @@ from dotenv import load_dotenv
 DOT_ENV_PATH = "C:/codes/GUIs/Scriptx"
 
 
-
-
-
 load_dotenv(os.path.join(DOT_ENV_PATH,".env"))
+    
+    
+    
 
 path_scripts = os.getenv("path_scripts")
 assets_path = os.getenv("assets_path")
