@@ -17,8 +17,20 @@
 <code> python main.py</code>
 
 
-## For exe 
+## For exe
 
-- You can build by pyinstaller but soon i will add a installer on my own 
+1) ENV settings 
+- Save the ".env" file in C:/users/<yourname>/.Scripts/ || choose the path that is editable & not required by admin
+- Change the same path in "main.py" | "enlarged.py" | "file_tools.py" of VAR "DOT_ENV_PATH"
+
+2) Build by PyInstaller 
+ - <code> python -m PyInstaller --onedir --windowed main.py </code> 
+ - Save the "exe" and "_internal" under C:/Program Files/Scriptx/
+ - Save the "assets" folder under C:/Program Files/Scriptx/dist/
+ > under dist folder the exe will detected by antivirus but it is only one time 
+
+3) Add the exe to "regedit" for custom access 
+
+
 
 **Feel free to offer suggestion**
