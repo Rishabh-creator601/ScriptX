@@ -1,14 +1,17 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication,QMessageBox,QFileDialog
 from PyQt5.uic import loadUi
 from PyQt5 import QtGui
 from enlarged_windows import EnlargedWindow
-import sys ,os,pyperclip
+import sys ,os,dotenv
 from files_tools import show_files,path_scripts,read_file,write_file
 from dotenv import load_dotenv
 
 
-load_dotenv(os.path.join("C:\Program Files\ScriptX",".env"))
+
+DOT_ENV_PATH = "C:/codes/GUIs/Scriptx"
+
+
+load_dotenv(os.path.join(DOT_ENV_PATH,".env"))
 
 
 
@@ -16,6 +19,9 @@ os.chdir(os.getcwd())
 
 
 path_scripts = os.getenv("path_scripts")
+
+
+
 
 class Main(QMainWindow):
     def __init__(self):
@@ -39,6 +45,7 @@ class Main(QMainWindow):
         self.filesList.itemSelectionChanged.connect(self.render_file)
         self.itemsCheck.stateChanged.connect(self.show_items)
         self.renderBtn.clicked.connect(self.render_items)
+        self.open_raw.clicked.connect(self.show_raw)
         
         
         
@@ -47,10 +54,17 @@ class Main(QMainWindow):
         self.save_file.clicked.connect(self.save_cont)
         self.clear_btn.clicked.connect(self.clear_area)
         
-        ## New window
-        self.show_enlarged.clicked.connect(self.show_data)
-        
+        ## New window -- For enlarged view of text
+        self.show_enlarged.clicked.connect(self.show_data) 
         self.enlarged_view = EnlargedWindow(self)
+        
+        ## TAB 3: SETTINGS 
+        self.path_s.setText(path_scripts)
+        self.path_a.setText(os.getenv("assets_path"))
+        self.browse_path.clicked.connect(self.browse_scripts)
+        self.browse_assets.clicked.connect(self.browse_assets_path)
+        self.defBtn.clicked.connect(self.to_default)
+        
         
     
     
@@ -88,7 +102,9 @@ class Main(QMainWindow):
     
     
     def copy_(self):
-        pyperclip.copy(self.content.toPlainText())
+        ## Previously used pyperclip
+        self.content.selectAll()
+        self.content.copy()
         QMessageBox.information(self ,"Info","COPIED !")
     
     
@@ -111,6 +127,28 @@ class Main(QMainWindow):
         self.front_file_name.setText("")
         self.content.setText("")
         
+    def show_raw(self):
+        file_name  = [i.text() for  i in self.filesList.selectedItems()][0]
+        file_path = f"{path_scripts}/{file_name}"
+        os.system(file_path)
+    
+    def browse_scripts(self):
+        dir_name = QFileDialog.getExistingDirectory(self,"Select directory for scripts")
+        self.path_s.setText(dir_name)
+        dotenv.set_key(os.path.join(DOT_ENV_PATH,".env"),"path_scripts",dir_name)
+        
+    def browse_assets_path(self):
+        dir_name = QFileDialog.getExistingDirectory(self,"Select directory for assets")
+        self.path_a.setText(dir_name)
+        dotenv.set_key(os.path.join(DOT_ENV_PATH,".env"),"assets_path",dir_name)
+    
+    def to_default(self):
+        
+        self.path_s.setText(os.getenv("default_path_scripts"))
+        self.path_a.setText(os.getenv("default_assets_path"))
+        
+        dotenv.set_key(os.path.join(DOT_ENV_PATH,".env"),"path_scripts",os.getenv("default_path_scripts"))
+        dotenv.set_key(os.path.join(DOT_ENV_PATH,".env"),"assets_path",os.getenv("default_assets_path"))
         
     
         
